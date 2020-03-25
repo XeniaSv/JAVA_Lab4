@@ -26,10 +26,11 @@ public class TechnicalItem extends GenericItem {
 
     //Метод сравнения с помощью метода equals 2-х объектов класса
     public boolean equals(Object o) {
-        if (hashCode() != o.hashCode()) {
+        if (o == this)
+            return true;
+
+        if (o == null || o.getClass() != this.getClass())
             return false;
-        }
-        if (!(o instanceof TechnicalItem)) return false;
         TechnicalItem temp = (TechnicalItem) o;
         return super.equals(temp) && this.warrantyTime == temp.warrantyTime;
     }
@@ -42,6 +43,14 @@ public class TechnicalItem extends GenericItem {
     //Метод перевода в строку
     public String toString() {
         return super.toString() + "\tWarranty time" + this.warrantyTime;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.getName() == null) ? 0 : this.getName().hashCode());
+        return result;
     }
 }
 

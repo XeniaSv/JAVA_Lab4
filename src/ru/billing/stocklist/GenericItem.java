@@ -78,10 +78,11 @@ public class GenericItem implements Cloneable {
 
     //Метод сравнения с помощью метода equals 2-х объектов класса
     public boolean equals(Object o) {
-        if (hashCode() != o.hashCode()) {
+        if (o == this)
+            return true;
+
+        if (o == null || o.getClass() != this.getClass())
             return false;
-        }
-        if (!(o instanceof GenericItem)) return false;
         GenericItem temp = (GenericItem) o;
         return this.ID == temp.ID && this.name.equals(temp.name) && this.price == temp.price && this.analog.equals(temp.analog);
     }
@@ -95,6 +96,14 @@ public class GenericItem implements Cloneable {
     public String toString() {
         return "ID: " + this.ID + "\tName: " + this.name + "\tPrice: " + this.price +
                 "\tAnalog: " + analog;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        return result;
     }
 }
 

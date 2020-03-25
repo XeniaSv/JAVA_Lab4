@@ -4,17 +4,19 @@ import ru.billing.stocklist.GenericItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ItemCatalog {
     //Коллекция со списком товаров
-    private HashMap<Integer, GenericItem> catalog =
+    private Map<Integer, GenericItem> catalog =
             new HashMap<Integer, GenericItem>();
     //Коллекция с тем же списком товаров( нужна для сравнения с catalog)
-    private ArrayList<GenericItem> ALCatalog =
+    private List<GenericItem> ALCatalog =
             new ArrayList<GenericItem>();
 
     //Геттер для коллекции catalog
-    public HashMap<Integer, GenericItem> getCatalog() {
+    public Map<Integer, GenericItem> getCatalog() {
         return catalog;
     }
 
@@ -24,7 +26,7 @@ public class ItemCatalog {
     }
 
     //Геттер для коллекции ALCatalog
-    public ArrayList<GenericItem> getALCatalog() {
+    public List<GenericItem> getALCatalog() {
         return ALCatalog;
     }
 
