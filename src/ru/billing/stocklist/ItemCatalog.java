@@ -1,5 +1,6 @@
 package ru.billing.stocklist;
 
+import ru.billing.exceptions.ItemAlreadyExistsException;
 import ru.billing.stocklist.GenericItem;
 
 import java.util.ArrayList;
@@ -36,9 +37,19 @@ public class ItemCatalog {
     }
 
     // Метод добавления товара в каталог
-    public void addItem(GenericItem item) {
-        catalog.put(item.getID(), item); // Добавляем товар в HashMap
-        allCatalog.add(item); // Добавляем тот же товар в ArrayList
+    public void addItem(GenericItem item) throws ItemAlreadyExistsException {
+        try {
+            for (GenericItem item1 : allCatalog) {
+                if (item1.equals(item)) {
+                    throw new ItemAlreadyExistsException("Продукт уже создан!");
+                }
+            }
+            catalog.put(item.getID(), item); // Добавляем товар в HashMap
+            allCatalog.add(item); // Добавляем тот же товар в ArrayList
+        }
+        catch (ItemAlreadyExistsException e) {
+            throw new ItemAlreadyExistsException(e);
+        }
     }
 
     //Метод вывод на экран товаров из каталога
@@ -69,6 +80,4 @@ public class ItemCatalog {
         }
         return null;
     }
-
-
 }

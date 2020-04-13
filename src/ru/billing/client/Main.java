@@ -1,9 +1,12 @@
 package ru.billing.client;
 
+import ru.billing.exceptions.CatalogLoadException;
+import ru.billing.exceptions.ItemAlreadyExistsException;
 import ru.billing.stocklist.Category;
 import ru.billing.stocklist.GenericItem;
 import ru.billing.stocklist.ItemCatalog;
 
+import java.io.IOException;
 import java.util.Date;
 
 
@@ -24,17 +27,21 @@ public class Main {
 
         //Добавление товаров в коллекцию
         ItemCatalog itCat = new ItemCatalog();
-        itCat.addItem(one);
-        itCat.addItem(two);
-        itCat.addItem(three);
-        itCat.addItem(four);
-        itCat.addItem(five);
-        itCat.addItem(six);
-        itCat.addItem(seven);
-        itCat.addItem(eight);
-        itCat.addItem(nine);
-        itCat.addItem(ten);
-
+        //Обработка исключения для уже существующего товара
+        try {
+            itCat.addItem(one);
+            itCat.addItem(two);
+            itCat.addItem(three);
+            itCat.addItem(four);
+            itCat.addItem(five);
+            itCat.addItem(six);
+            itCat.addItem(seven);
+            itCat.addItem(eight);
+            itCat.addItem(nine);
+            itCat.addItem(ten);
+        } catch (ItemAlreadyExistsException e) {
+            e.printStackTrace();
+        }
 
         //Скорость поиска по двум типам коллекций
         long begin = new Date().getTime();
@@ -53,6 +60,23 @@ public class Main {
 
         //Экземпляр, загружающий товары в каталог с помощью объекта-загрузчика
         CatalogLoader loader = new CatalogStubLoader();
-        loader.load(itCat);
+        //Обработка исключения для загрузки товара
+        try {
+            loader.load(itCat);
+        } catch (IOException | CatalogLoadException e) {
+            e.printStackTrace();
+        }
+
+        //Загружаем продукты с файла
+        CatalogFileLoader fileLoader = new CatalogFileLoader("C:\\Users\\Ксения\\Desktop\\4 sem\\Java\\Lab4\\src\\ru\\billing\\client\\File.txt");
+        try {
+            fileLoader.load(itCat);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        //Вывод всех товаров
+        itCat.printItems();
     }
 }
