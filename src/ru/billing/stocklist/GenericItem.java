@@ -2,19 +2,39 @@ package ru.billing.stocklist;
 
 public class GenericItem implements Cloneable {
     private static int currentID; // Хранение максимально назначенный ID товара в текущей сессии
-    private int ID; // ID товара
+    private int id; // ID товара
     private String name; // Наименование товара
     private float price; //Цена товара
-    private String analog;// Аналог
+    private Category category = Category.GENERAL; //Поле типа Category со значением по умолчанию GENERAL
+    private String analog; // Аналог
+
+    //Конструктор №1
+    public GenericItem(String name, float price, Category category) {
+        this.id = GenericItem.currentID++; // Инициализирование поле ID товара очередным свободным номером
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
+    //Конструктор №2
+    public GenericItem(String name, float price, String analog) {
+        this(name, price, Category.GENERAL);
+        this.analog = analog;
+    }
+
+    //Конструктор №3
+    public GenericItem() {
+        this(null, 0.0f, Category.GENERAL);
+    }
 
     //Геттер для ID товара
     public int getID() {
-        return ID;
+        return id;
     }
 
     //Сеттер для ID товара
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setID(int id) {
+        this.id = id;
     }
 
     //Геттер для названия товара
@@ -47,44 +67,26 @@ public class GenericItem implements Cloneable {
         this.analog = analog;
     }
 
-    //Конструктор №1
-    public GenericItem(String name, float price, Category category) {
-        this.ID = GenericItem.currentID++; // Инициализирование поле ID товара очередным свободным номером
-        this.name = name;
-        this.price = price;
-        this.category = category;
-    }
-
-    //Конструктор №2
-    public GenericItem(String name, float price, String analog) {
-        this.ID = GenericItem.currentID++;// Инициализирование поле ID товара очередным свободным номером
-        this.name = name;
-        this.price = price;
-        this.analog = analog;
-    }
-
-    //Конструктор №3
-    public GenericItem() {
-        this.ID = GenericItem.currentID++; // Инициализирование поле ID товара очередным свободным номером
+    public Category getCategory() {
+        return this.category;
     }
 
     //Метод вывода данных
     public void printAll() {
-        System.out.printf("ID: %d , Name: %-20s , Price:%5.2f , Analog: %-20s, Category:%-8s\n", ID, name, price, analog, category);
+        System.out.printf("ID: %d , Name: %-20s , Price:%5.2f , Analog: %-20s, Category:%-8s\n", id, name, price, analog, category);
     }
-
-    //Поле типа Category со значением по умолчанию GENERAL
-    public Category category = Category.GENERAL;
 
     //Метод сравнения с помощью метода equals 2-х объектов класса
     public boolean equals(Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
-        if (o == null || o.getClass() != this.getClass())
+        if (o == null || o.getClass() != this.getClass()) {
             return false;
+        }
         GenericItem temp = (GenericItem) o;
-        return this.ID == temp.ID && this.name.equals(temp.name) && this.price == temp.price && this.analog.equals(temp.analog);
+        return this.id == temp.id && this.name.equals(temp.name) && this.price == temp.price && this.analog.equals(temp.analog);
     }
 
     //Метод клонирования экземпляра класса
@@ -94,7 +96,7 @@ public class GenericItem implements Cloneable {
 
     //Метод перевода в строку
     public String toString() {
-        return "ID: " + this.ID + "\tName: " + this.name + "\tPrice: " + this.price +
+        return "ID: " + this.id + "\tName: " + this.name + "\tPrice: " + this.price +
                 "\tAnalog: " + analog;
     }
 
@@ -106,5 +108,3 @@ public class GenericItem implements Cloneable {
         return result;
     }
 }
-
-

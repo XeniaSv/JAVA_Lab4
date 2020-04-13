@@ -39,13 +39,15 @@ public class Main {
         //Скорость поиска по двум типам коллекций
         long begin = new Date().getTime();
 
-        for (int i = 0; i < 100000; i++)
+        for (int i = 0; i < 100000; i++) {
             itCat.findItemByID(10);
+        }
         long end = new Date().getTime();
         System.out.println("In HashMap: " + (end - begin));
         begin = new Date().getTime();
-        for (int i = 0; i < 100000; i++)
+        for (int i = 0; i < 100000; i++) {
             itCat.findItemByIDAL(10);
+        }
         end = new Date().getTime();
         System.out.println("In ArrayList: " + (end - begin));
 

@@ -12,7 +12,7 @@ public class ItemCatalog {
     private Map<Integer, GenericItem> catalog =
             new HashMap<Integer, GenericItem>();
     //Коллекция с тем же списком товаров( нужна для сравнения с catalog)
-    private List<GenericItem> ALCatalog =
+    private List<GenericItem> allCatalog =
             new ArrayList<GenericItem>();
 
     //Геттер для коллекции catalog
@@ -27,23 +27,23 @@ public class ItemCatalog {
 
     //Геттер для коллекции ALCatalog
     public List<GenericItem> getALCatalog() {
-        return ALCatalog;
+        return allCatalog;
     }
 
     //Сеттер для коллекции ALCatalog
-    public void setALCatalog(ArrayList<GenericItem> ALCatalog) {
-        this.ALCatalog = ALCatalog;
+    public void setALCatalog(ArrayList<GenericItem> allCatalog) {
+        this.allCatalog = allCatalog;
     }
 
     // Метод добавления товара в каталог
     public void addItem(GenericItem item) {
         catalog.put(item.getID(), item); // Добавляем товар в HashMap
-        ALCatalog.add(item); // Добавляем тот же товар в ArrayList
+        allCatalog.add(item); // Добавляем тот же товар в ArrayList
     }
 
     //Метод вывод на экран товаров из каталога
     public void printItems() {
-        for (GenericItem i : ALCatalog) {
+        for (GenericItem i : allCatalog) {
             System.out.println(i);
         }
     }
@@ -62,8 +62,10 @@ public class ItemCatalog {
     //Метод поиска товара в каталоге по переданному ID товара
     //Поиск в коллекции ALCatalog типа ArrayList
     public GenericItem findItemByIDAL(int id) {
-        for (GenericItem i : ALCatalog) {
-            if (i.getID() == id) return i;
+        for (GenericItem i : allCatalog) {
+            if (i.getID() == id) {
+                return i;
+            }
         }
         return null;
     }

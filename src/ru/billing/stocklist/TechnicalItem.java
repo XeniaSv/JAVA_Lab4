@@ -21,16 +21,18 @@ public class TechnicalItem extends GenericItem {
                         "Analog: %-20s, " +
                         "Category:%-8s" +
                         "WarrantyTime:%d\n",
-                getID(), getName(), getPrice(), getAnalog(), category, warrantyTime);
+                getID(), getName(), getPrice(), getAnalog(), getCategory(), warrantyTime);
     }
 
     //Метод сравнения с помощью метода equals 2-х объектов класса
     public boolean equals(Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
-        if (o == null || o.getClass() != this.getClass())
+        if (o == null || o.getClass() != this.getClass()) {
             return false;
+        }
         TechnicalItem temp = (TechnicalItem) o;
         return super.equals(temp) && this.warrantyTime == temp.warrantyTime;
     }

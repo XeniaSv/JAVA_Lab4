@@ -6,26 +6,6 @@ public class FoodItem extends GenericItem {
     private Date dateOfIncome = new Date(); // дата производства
     private short expires; // срок годности
 
-    //Геттер для даты производства товара
-    public Date getDateOfIncome() {
-        return dateOfIncome;
-    }
-
-    //Сеттер для даты производства товара
-    public void setDateOfIncome(Date dateOfIncome) {
-        this.dateOfIncome = dateOfIncome;
-    }
-
-    //Геттер для срока годности товара
-    public short getExpires() {
-        return expires;
-    }
-
-    //Сеттер для срока годности товара
-    public void setExpires(short expires) {
-        this.expires = expires;
-    }
-
     //Конструктор №1
     public FoodItem(String name, float price, String analog, Date date, short expires) {
         this(name, price, expires); // Вызов частного конструктора №2
@@ -46,6 +26,26 @@ public class FoodItem extends GenericItem {
         setName(name);
     }
 
+    //Геттер для даты производства товара
+    public Date getDateOfIncome() {
+        return dateOfIncome;
+    }
+
+    //Сеттер для даты производства товара
+    public void setDateOfIncome(Date dateOfIncome) {
+        this.dateOfIncome = dateOfIncome;
+    }
+
+    //Геттер для срока годности товара
+    public short getExpires() {
+        return expires;
+    }
+
+    //Сеттер для срока годности товара
+    public void setExpires(short expires) {
+        this.expires = expires;
+    }
+
     //Метод вывода данных
     public void printAll() {
         System.out.printf("ID: %d , " +
@@ -55,16 +55,18 @@ public class FoodItem extends GenericItem {
                         "Category: %-8s, " +
                         "Expires:%d, " +
                         "Date: %7$td %7$tB %7$tY\n",
-                getID(), getName(), getPrice(), getAnalog(), category, expires, dateOfIncome);
+                getID(), getName(), getPrice(), getAnalog(), getCategory(), expires, dateOfIncome);
     }
 
     //Метод сравнения с помощью метода equals 2-х объектов класса
     public boolean equals(Object o) { //
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
-        if (o == null || o.getClass() != this.getClass())
+        if (o == null || o.getClass() != this.getClass()) {
             return false;
+        }
         FoodItem temp = (FoodItem) o;
         return super.equals(temp) && this.dateOfIncome.equals(temp.dateOfIncome) && this.expires == temp.expires;
     }
